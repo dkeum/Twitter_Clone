@@ -51,7 +51,7 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
       <div className="h-12 w-12">
         <Image
           className="rounded-full"
-          src={tweet.author.avatar_url}
+          src={tweet.author.avatar_url || ""}
           alt="tweet user avatar"
           width={48}
           height={48}
