@@ -23,14 +23,18 @@ export default function AuthButtonClient({
     await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: "http://localhost:3000/auth/callback",
+        redirectTo: `${location.origin}/auth/callback`,
       },
     });
   };
 
   return session ? (
-    <button onClick={handleSignOut}>Logout</button>
+    <button className="text-xs text-gray-400" onClick={handleSignOut}>
+      Logout
+    </button>
   ) : (
-    <button onClick={handleSignIn}>Login</button>
+    <button className="text-xs text-gray-400" onClick={handleSignIn}>
+      Login
+    </button>
   );
 }

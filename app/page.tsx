@@ -3,7 +3,9 @@ import { cookies } from "next/headers";
 import AuthButtonServer from "./auth-button-server";
 import { redirect } from "next/navigation";
 import NewTweet from "./new-tweet";
-import Likes from "./likes";
+import Tweets from "./tweets";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -31,18 +33,14 @@ export default async function Home() {
     })) ?? [];
 
   return (
-    <>
-      <AuthButtonServer />
-      <NewTweet />
-      {tweets.map((tweet) => (
-        <div key={tweet.id}>
-          <p>
-            {tweet.author.name} {tweet.author.username}
-          </p>
-          <p>{tweet.title}</p>
-          <Likes tweet={tweet} />
-        </div>
-      ))}
-    </>
+    <div className="bg-neutral-100 w-full max-w-xl mx-auto">
+      <div className="flex justify-between px-4 py-6 border border-gray-800 border-t-0">
+        <h1 className="text-xl font-bold">Home</h1>
+        <AuthButtonServer />
+      </div>
+
+      <NewTweet user={session.user} />
+      <Tweets tweets={tweets} />
+    </div>
   );
 }
